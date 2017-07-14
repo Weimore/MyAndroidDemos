@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/seachtagbackground"
+    android:orientation="horizontal"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:padding="10dp"
+    >
+
+    <ImageView
+        android:layout_gravity="start"
+        android:layout_width="27dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/search" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="搜索图片"/>
+    <ImageView
+        android:id="@+id/search_camera"
+        android:layout_gravity="end"
+        android:layout_width="27dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/camera" />
+</LinearLayout>

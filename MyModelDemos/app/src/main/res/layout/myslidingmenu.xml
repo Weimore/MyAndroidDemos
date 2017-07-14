@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/lightWhite"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/self_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+
+    <com.example.mymodeldemos.widget.MenuScrollView
+        android:id="@+id/sliding_menu_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        >
+        <com.example.mymodeldemos.widget.rowViewWidgets.ContainerRowView
+            android:id="@+id/container_row_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+    </com.example.mymodeldemos.widget.MenuScrollView>
+</LinearLayout>

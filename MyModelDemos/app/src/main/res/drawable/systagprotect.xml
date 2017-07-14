@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--给系统栏添加一个遮罩，提高可见度-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#23000000"
+        android:endColor="#00000000"></gradient>
+</shape>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorTheme</color>
+    <color name="colorPrimaryDark">@color/colorTheme</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTheme">#ed9644</color>  <!--主题色-->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="lightWhite">#ecebeb</color>  <!--浅白色-->
+    <color name="searchBarColor">#aaffffff</color>   <!--查询图片栏的透明色-->
+    <color name="rowLineColor">#e7e1e1</color>
+</resources>

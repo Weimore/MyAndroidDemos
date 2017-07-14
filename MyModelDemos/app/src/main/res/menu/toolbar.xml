@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/download_cover"
+        android:title="下载封面"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/switch_cover"
+        android:title="切换封面"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/custon_cover"
+        android:title="自定义封面"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/custom_tag"
+        android:title="自定义标签"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/custom_theme"
+        android:title="自定义主题"
+        app:showAsAction="never" />
+</menu>
