@@ -61,6 +61,7 @@ public class NormalRowView extends LinearLayout implements View.OnClickListener{
         }else {//如果不可点击
             mRowViewPress.setVisibility(View.GONE);
             setBackgroundResource(R.color.colorWhite);
+
         }
     }
 
