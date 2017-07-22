@@ -38,4 +38,10 @@ public class ScreenUtils {
         return i;
     }
 
+    //把sp转换成px
+    public static int sp2px(Context context,int sp){
+        int i= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,sp,context.getResources().getDisplayMetrics());
+        return i;
+    }
+
 }
