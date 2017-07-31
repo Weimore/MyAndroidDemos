@@ -9,20 +9,26 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.base.MyBaseActivity;
 import com.example.mymodeldemos.fragment.FirstFragment;
+import com.example.mymodeldemos.model.RowClickedEvent;
 import com.example.mymodeldemos.utils.ImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.widget.MyScrollView;
+import com.example.mymodeldemos.widget.MyToolbar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +43,7 @@ public class SecondActivity extends MyBaseActivity {
     private ViewPager mViewPager;
     private TabTitleAdapter mAdapter;
     private ImageView mThemeImage;
-    private Toolbar mToolbar;
+    private MyToolbar mToolbar;
 
 
 
@@ -49,18 +55,19 @@ public class SecondActivity extends MyBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+//            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+//        }
+        EventBus.getDefault().register(this);
         initView();
         initData();
-        initEvent();
     }
 
-    private void initEvent() {
-
-    }
 
     private void initData() {
         mTitles = getResources().getStringArray(R.array.tab_title);
-//        mTitles=new String[]{"美图","趣事","新闻","条漫","绘画"};
+
         for (int i = 0; i < mTitles.length; i++) {
             firstFrag = new FirstFragment();
             mFragments.add(firstFrag);
@@ -79,26 +86,51 @@ public class SecondActivity extends MyBaseActivity {
 
     private void initView() {
         mDrawerLayout= (DrawerLayout) findViewById(R.id.drawlayout);
+        mToolbar= (MyToolbar) findViewById(R.id.toolbar);
+        mToolbar.initToolbar(this);
+        ActionBarDrawerToggle mToogle = new ActionBarDrawerToggle(        //设定drawLayout的开关及动画
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mToogle.syncState();
+        mDrawerLayout.setDrawerListener(mToogle);           //让ActionBarDrawerToggle监听drawerLayout的开关状态
+
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mThemeImage = (ImageView) findViewById(R.id.theme_image);
-        mToolbar= (Toolbar) findViewById(R.id.toolbar);
-        setActionBar(mToolbar);
-        initToolbar();
-
 
     }
 
-    //对toolbar进行一些设置
-    private void initToolbar() {
-        ActionBar actionBar=getActionBar();
-        if(actionBar!=null){
-            actionBar.setDisplayShowTitleEnabled(false);  //不显示label
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.homelogo);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetRowClickEvent(RowClickedEvent event){
+        mDrawerLayout.closeDrawer(GravityCompat.START);  //点击左边选项后关闭滑动菜单
+        Toast.makeText(this, "You clicked :" + event.rowViewEnum.name(), Toast.LENGTH_SHORT).show();
+        switch (event.rowViewEnum){
+            case PROFILE://个人中心
+
+                break;
+            case SEARCH_PICTURE://以图搜图
+
+                break;
+            case SUPPORT://续一秒
+
+                break;
+            case SETTING://设置
+
+                break;
+            case LIKE://给个好评
+
+                break;
+            case NIGHT://夜间模式
+
+                break;
         }
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     //加载toolbar布局为menu形式
     @Override
@@ -107,30 +139,5 @@ public class SecondActivity extends MyBaseActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.download_cover:
-                Toast.makeText(this, "下载封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.switch_cover:
-                Toast.makeText(this, "切换封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custon_cover:
-                Toast.makeText(this, "自定义封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custom_tag:
-                Toast.makeText(this, "自定义标签暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custom_theme:
-                Toast.makeText(this, "自定义主题暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
+
 }

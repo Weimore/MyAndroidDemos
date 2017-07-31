@@ -10,6 +10,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.mymodeldemos.R;
+import com.example.mymodeldemos.model.RowClickedEvent;
 import com.example.mymodeldemos.utils.ImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.widget.rowViewWidgets.ContainerRowView;
@@ -19,6 +20,8 @@ import com.example.mymodeldemos.widget.rowViewWidgets.NormalRowView;
 import com.example.mymodeldemos.widget.rowViewWidgets.RowDescriptor;
 import com.example.mymodeldemos.widget.rowViewWidgets.RowViewEnum;
 import com.example.mymodeldemos.widget.rowViewWidgets.rowClickListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +87,7 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
 
         groupDescriptors.add(new GroupDescriptor(rowDescriptors));
 
-        rowDescriptors=new ArrayList<>();
+        rowDescriptors=new ArrayList<RowDescriptor>();
         rowDescriptors.add(new RowDescriptor(R.drawable.support,"续一秒",RowViewEnum.SUPPORT));
         rowDescriptors.add(new RowDescriptor(R.drawable.settings,"设置",RowViewEnum.SETTING));
         rowDescriptors.add(new RowDescriptor(R.drawable.like,"给个好评",RowViewEnum.LIKE));
@@ -99,6 +102,7 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
 
     @Override
     public void onRowClicked(RowViewEnum rowViewEnum) {
-        Toast.makeText(getContext(), "You clicked :" + rowViewEnum.name(), Toast.LENGTH_SHORT).show();
+        RowClickedEvent event=new RowClickedEvent(rowViewEnum);
+        EventBus.getDefault().post(event);
     }
 }

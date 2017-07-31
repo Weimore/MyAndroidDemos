@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mymodeldemos.R;
+import com.example.mymodeldemos.utils.LogUtils;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
 /**
@@ -43,7 +44,7 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
     private rowClickListener mListener;
     RowDescriptor mDescriptor;
 
-    private int textSize=15;
+    private int textSize=13;    //文字的size
     private String text;
     private int mIconColor= Color.parseColor("#32AA78");
     private int mTextLeftMargin;  //文字距离icon的左边距
@@ -138,18 +139,17 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        mIconHeight=ScreenUtils.dp2px(mContext,25);
+        mIconHeight=ScreenUtils.dp2px(mContext,20);
         mIconLeftMargin=ScreenUtils.dp2px(mContext,15)+getPaddingLeft();
         int top=(getMeasuredHeight()-mIconHeight)/2+getPaddingTop();
         mIconRect=new Rect(mIconLeftMargin,top,mIconHeight+mIconLeftMargin,mIconHeight+top); //图标的位置取决于iconRect相对于View的位置
 
         mPressHeight=ScreenUtils.dp2px(mContext,15);
         mPressWidth=ScreenUtils.dp2px(mContext,15);
-        mPressRightMargin=getPaddingRight()-ScreenUtils.dp2px(mContext,20);
-        int prsssLeft=getMeasuredWidth()-mPressWidth-getPaddingRight()-mPressRightMargin;
+        mPressRightMargin=ScreenUtils.dp2px(mContext,20);
+        int pressLeft=getMeasuredWidth()-mPressWidth-getPaddingRight()-mPressRightMargin;
         int pressTop=(getMeasuredHeight()-mPressHeight)/2;
-        mPressRect=new Rect(prsssLeft,pressTop,mPressWidth+prsssLeft,mPressHeight+pressTop);
+        mPressRect=new Rect(pressLeft,pressTop,mPressWidth+pressLeft,mPressHeight+pressTop);
     }
 
     @Override
@@ -168,6 +168,8 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
         if(drawPressButton==false){
             return;
         }
+        mBitmap=null;
+        LogUtils.d("draw.....");
         mBitmap=Bitmap.createBitmap(getMeasuredWidth(),getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(mBitmap);
 
@@ -183,7 +185,7 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
     //对文字进行绘制
     private void drawText(Canvas canvas) {
 
-        mTextLeftMargin=ScreenUtils.dp2px(mContext,30)+getPaddingLeft();
+        mTextLeftMargin=ScreenUtils.dp2px(mContext,40)+getPaddingLeft();
 
         int left= mTextLeftMargin+mIconRect.width();
         int baseLine= getMeasuredHeight()/2+mTextRect.height()/2;  //文字的基准线
@@ -204,8 +206,8 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
     }
 
     //供外部改变color的方法
-    public void setIconColor(int color){
-        mIconColor=color;
+    public void setIconColor(int colorResource){
+        mIconColor=getResources().getColor(colorResource);
         invalidateView();//改变颜色后需要重新绘制
     }
 

@@ -10,29 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
         <com.example.mymodeldemos.widget.MyScrollView
             android:id="@+id/myscrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:background="@color/colorTheme"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
-                    android:fitsSystemWindows="true">
+                    >
 
                     <ImageView
                         android:id="@+id/theme_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fitsSystemWindows="true"
                         android:scaleType="centerCrop" />   <!--?-->
                     <View
                         android:id="@+id/image_cover_view"
@@ -40,34 +38,38 @@
                         android:layout_height="match_parent"
                         android:alpha="0"
                         android:background="@color/colorPrimary"
-                        android:fitsSystemWindows="true" />
+                        />
                     <!--该view用于使系统栏一直可见，防止淡色影响-->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/systagprotect"
-                        android:fitsSystemWindows="true" />
+                         />
 
                     <!--搜索图片框-->
                     <!--<include layout="@layout/search_tab"/>-->
                     <com.example.mymodeldemos.widget.SearchBar
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="15dp" />
 
                     <!--toolbar的布局-->
-                    <Toolbar
+                    <com.example.mymodeldemos.widget.MyToolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:theme="@style/ToolbarTheme" />
-                </FrameLayout>
+                        android:layout_height="wrap_content"
+                        android:minHeight="?attr/actionBarSize"
+                        app:popupTheme="@style/Theme.AppCompat.Light"
+                        android:theme="@style/ToolbarTheme"
+                        />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
                     <include layout="@layout/tab_title_layout" />
 
@@ -80,20 +82,34 @@
         </com.example.mymodeldemos.widget.MyScrollView>
     </LinearLayout>
 
-    <FrameLayout
+
+    <com.example.mymodeldemos.widget.MySlidingMenu
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:clickable="true"
+        android:layout_marginLeft="15dp">       <!--可以减小滑动菜单的宽度-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            android:text="hello" />
         <!--该view用于使系统栏一直可见，防止淡色影响-->
-        <View
+        <View xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#33000000" />
-    </FrameLayout>
+    </com.example.mymodeldemos.widget.MySlidingMenu>
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:text="hello" />-->
+        <!--&lt;!&ndash;该view用于使系统栏一直可见，防止淡色影响&ndash;&gt;-->
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="#33000000" />-->
+    <!--</FrameLayout>-->
 </android.support.v4.widget.DrawerLayout>

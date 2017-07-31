@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,13 +22,20 @@ import android.widget.Toolbar;
 import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.base.MyBaseActivity;
 import com.example.mymodeldemos.fragment.FirstFragment;
+import com.example.mymodeldemos.model.RowClickedEvent;
 import com.example.mymodeldemos.utils.ImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
+import com.example.mymodeldemos.widget.MyToolbar;
+import com.example.mymodeldemos.widget.rowViewWidgets.RowViewEnum;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends MyBaseActivity {
+public class HomeActivity extends MyBaseActivity {
 
     private DrawerLayout mDrawerLayout;
 
@@ -38,7 +47,7 @@ public class MainActivity extends MyBaseActivity {
     private ViewPager mViewPager;
     private TabTitleAdapter mAdapter;
     private ImageView mThemeImage;
-    private Toolbar mToolbar;
+    private MyToolbar mToolbar;
 
     private String[] mTitles;
     private FirstFragment firstFrag;
@@ -47,14 +56,15 @@ public class MainActivity extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         initView();
         initData();
+        EventBus.getDefault().register(this);
     }
 
     private void initData() {
         mTitles = getResources().getStringArray(R.array.tab_title);
-//        mTitles=new String[]{"美图","趣事","新闻","条漫","绘画"};
+
         for (int i = 0; i < mTitles.length; i++) {
             firstFrag = new FirstFragment();
             mFragments.add(firstFrag);
@@ -72,16 +82,20 @@ public class MainActivity extends MyBaseActivity {
     }
 
     private void initView() {
-        mDrawerLayout= (DrawerLayout) findViewById(R.id.drawlayout);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mThemeImage = (ImageView) findViewById(R.id.theme_image);
-        mToolbar= (Toolbar) findViewById(R.id.toolbar);
-        setActionBar(mToolbar);
-        initToolbar();
+        mDrawerLayout= (DrawerLayout) findViewById(R.id.drawlayout);  //滑动框架drawer
+        mToolbar= (MyToolbar) findViewById(R.id.toolbar);          //我的toolbar
+        mToolbar.initToolbar(this);       //toolbar进行一系列设置
+        ActionBarDrawerToggle mToogle = new ActionBarDrawerToggle(        //设定drawLayout的开关及动画
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mToogle.syncState();
+        mDrawerLayout.setDrawerListener(mToogle);           //让ActionBarDrawerToggle监听drawerLayout的开关状态
 
-        imageCoverView=findViewById(R.id.image_cover_view);  //遮罩层
-        appBarLayout= (AppBarLayout) findViewById(R.id.appbar_layout);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);      //标签布局tablayout
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);      // viewPager
+        mThemeImage = (ImageView) findViewById(R.id.theme_image);    //顶部的主题图片
+
+        imageCoverView=findViewById(R.id.image_cover_view);        //主题图片上的遮罩层
+        appBarLayout= (AppBarLayout) findViewById(R.id.appbar_layout);     //
         initImageCoverAlpha();
     }
 
@@ -99,19 +113,35 @@ public class MainActivity extends MyBaseActivity {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 float scale=Math.abs(verticalOffset)*1.0f/appBarLayoutHeight;  //0-1
                 imageCoverView.setAlpha(scale);
-//                Log.d("aaa","scale"+scale+"offset"+verticalOffset);
             }
         });
     }
 
-    //对toolbar进行一些设置
-    private void initToolbar() {
-        ActionBar actionBar=getActionBar();
-        if(actionBar!=null){
-            actionBar.setDisplayShowTitleEnabled(false);  //不显示label
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.homelogo);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGetRowClickEvent(RowClickedEvent event){
+        mDrawerLayout.closeDrawer(GravityCompat.START);  //点击左边选项后关闭滑动菜单
+        Toast.makeText(this, "You clicked :" + event.rowViewEnum.name(), Toast.LENGTH_SHORT).show();
+        switch (event.rowViewEnum){
+            case PROFILE://个人中心
+
+                break;
+            case SEARCH_PICTURE://以图搜图
+
+                break;
+            case SUPPORT://续一秒
+
+                break;
+            case SETTING://设置
+
+                break;
+            case LIKE://给个好评
+
+                break;
+            case NIGHT://夜间模式
+
+                break;
         }
+
     }
 
 
@@ -122,32 +152,10 @@ public class MainActivity extends MyBaseActivity {
         return true;
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.download_cover:
-                Toast.makeText(this, "下载封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.switch_cover:
-                Toast.makeText(this, "切换封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custon_cover:
-                Toast.makeText(this, "自定义封面暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custom_tag:
-                Toast.makeText(this, "自定义标签暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.custom_theme:
-                Toast.makeText(this, "自定义主题暂未实装", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
-        return true;
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
-
-
 }

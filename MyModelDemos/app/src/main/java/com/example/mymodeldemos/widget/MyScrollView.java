@@ -2,6 +2,8 @@ package com.example.mymodeldemos.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.example.mymodeldemos.R;
+import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
 /**
@@ -25,10 +28,11 @@ public class MyScrollView extends ScrollView {
     private ViewGroup mShowLayout;
     private View mImageCoverView;
 
-    private boolean once;
+    private boolean once;   //保证只measure一次
 
-    private int mScreenHeight;
-    private int mTopHeight=200;
+    private int mScreenHeight;   //用于测量该view高度
+    private int mTopHeight=180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
+
 
     public MyScrollView(Context context) {
         this(context, null);
@@ -47,6 +51,8 @@ public class MyScrollView extends ScrollView {
 
         mScreenHeight = ScreenUtils.getSreenHeight(getContext());
     }
+
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -74,7 +80,6 @@ public class MyScrollView extends ScrollView {
             this.scrollTo(0, 0);
         }
     }
-
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {

@@ -5,5 +5,5 @@ package com.example.mymodeldemos.widget.rowViewWidgets;
  */
 
 public enum RowViewEnum {
-    PROFILE,CAMERA,LIKE,SUPPORT,SETTING,NIGHT,SUNNY
+    PROFILE,CAMERA,LIKE,SUPPORT,SETTING,NIGHT,SUNNY,SEARCH_PICTURE
 }
