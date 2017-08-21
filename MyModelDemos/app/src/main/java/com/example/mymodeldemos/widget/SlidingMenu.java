@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.example.mymodeldemos.R;
-import com.example.mymodeldemos.model.RowClickedEvent;
-import com.example.mymodeldemos.utils.ImageLoder;
+import com.example.mymodeldemos.event.OnColorChangedListener;
+import com.example.mymodeldemos.event.RowClickedEvent;
+import com.example.mymodeldemos.utils.MyImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.widget.rowViewWidgets.ContainerRowView;
 import com.example.mymodeldemos.widget.rowViewWidgets.GroupDescriptor;
-import com.example.mymodeldemos.widget.rowViewWidgets.GroupRowView;
-import com.example.mymodeldemos.widget.rowViewWidgets.NormalRowView;
 import com.example.mymodeldemos.widget.rowViewWidgets.RowDescriptor;
 import com.example.mymodeldemos.widget.rowViewWidgets.RowViewEnum;
 import com.example.mymodeldemos.widget.rowViewWidgets.rowClickListener;
@@ -30,12 +28,12 @@ import java.util.List;
  * Created by 吴城林 on 2017/7/10.
  */
 
-public class MySlidingMenu extends FrameLayout implements rowClickListener {
+public class SlidingMenu extends FrameLayout implements rowClickListener {
 
     private Context mContext;
     private ImageView mSelfImage;
     private ScrollView mScrollView;
-
+    private List<OnColorChangedListener> colorChangedListeners;
 
 //    private NormalRowView mNormalRowView;
 //    private GroupRowView mGroupRowView;
@@ -49,18 +47,18 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
     private List<GroupDescriptor> groupDescriptors;
 
 
-    public MySlidingMenu(Context context) {
+    public SlidingMenu(Context context) {
         this(context, null);
     }
 
-    public MySlidingMenu(Context context, AttributeSet attrs) {
+    public SlidingMenu(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MySlidingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlidingMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
-        LayoutInflater.from(mContext).inflate(R.layout.myslidingmenu, this);
+        LayoutInflater.from(mContext).inflate(R.layout.sliding_menu, this);
         initView();
         initData();
     }
@@ -69,7 +67,7 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
     private void initView() {
         mSelfImage = (ImageView) findViewById(R.id.self_image);
         int height = ScreenUtils.dp2px(mContext, 180);
-        Bitmap selfBitmap = ImageLoder.decodeSampleBitmapForResource(getResources(), R.drawable.selfimage2, ScreenUtils.getSreenWidth(mContext), height);
+        Bitmap selfBitmap = MyImageLoder.decodeSampleBitmapForResource(getResources(), R.drawable.selfimage2, ScreenUtils.getSreenWidth(mContext), height);
         mSelfImage.setImageBitmap(selfBitmap);
 
 //        mScrollView = (ScrollView) findViewById(R.id.sliding_menu_scrollview);
@@ -79,10 +77,12 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
     }
 
     private void initData() {
+        colorChangedListeners = new ArrayList<>();
+
         rowDescriptors = new ArrayList<>();
         groupDescriptors=new ArrayList<>();
         rowDescriptors.add(new RowDescriptor(R.drawable.profile, "个人中心", RowViewEnum.PROFILE));
-        rowDescriptors.add(new RowDescriptor(R.drawable.camera, "以图搜图"));
+        rowDescriptors.add(new RowDescriptor(R.drawable.camera, "以图搜图",RowViewEnum.SEARCH_PICTURE));
 //        mGroupDescriptor=new GroupDescriptor(rowDescriptors);
 
         groupDescriptors.add(new GroupDescriptor(rowDescriptors));
@@ -98,11 +98,19 @@ public class MySlidingMenu extends FrameLayout implements rowClickListener {
 //        mNormalRowView.initDatas(mRowDescriptor,this);
 //        mGroupRowView.initData(mGroupDescriptor,this);
         mContainerRowView.initData(groupDescriptors,this);
+
+        colorChangedListeners.addAll(mContainerRowView.getColorChangedListeners());
     }
 
     @Override
     public void onRowClicked(RowViewEnum rowViewEnum) {
         RowClickedEvent event=new RowClickedEvent(rowViewEnum);
         EventBus.getDefault().post(event);
+    }
+
+    public void changerColor(int color){
+        for(OnColorChangedListener listener:colorChangedListeners){
+            listener.changeColor(color);
+        }
     }
 }

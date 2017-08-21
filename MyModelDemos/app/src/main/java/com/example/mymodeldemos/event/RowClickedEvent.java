@@ -1,4 +1,4 @@
-package com.example.mymodeldemos.model;
+package com.example.mymodeldemos.event;
 
 import com.example.mymodeldemos.widget.rowViewWidgets.RowDescriptor;
 import com.example.mymodeldemos.widget.rowViewWidgets.RowViewEnum;

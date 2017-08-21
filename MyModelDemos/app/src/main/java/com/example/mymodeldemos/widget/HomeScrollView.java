@@ -1,27 +1,22 @@
 package com.example.mymodeldemos.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.os.Looper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.example.mymodeldemos.R;
-import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
 /**
  * Created by 吴城林 on 2017/7/8.
  * 为SecondActivity自定义的滚动View
- * 当前问题：和系统栏不兼容
+ * 当前问题：和系统栏不兼容(已解决)
  */
 
-public class MyScrollView extends ScrollView {
+public class HomeScrollView extends ScrollView {
 
     private LinearLayout mWrapper;
     private ViewGroup mTopLayout;
@@ -34,25 +29,43 @@ public class MyScrollView extends ScrollView {
     private int mTopHeight=180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
 
 
-    public MyScrollView(Context context) {
+    public HomeScrollView(Context context) {
         this(context, null);
     }
 
-    public MyScrollView(Context context, AttributeSet attrs) {
+    public HomeScrollView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MyScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HomeScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-//        TypedArray ta=context.obtainStyledAttributes(attrs, R.styleable.MyScrollView);
+//        TypedArray ta=context.obtainStyledAttributes(attrs, R.styleable.HomeScrollView);
 //        mTopHeight=ta.getDimensionPixelSize(R.styleable.MyScrollView_topheight,ScreenUtils.dp2px(getContext(),mTopHeight));
 //        ta.recycle();
 
         mScreenHeight = ScreenUtils.getSreenHeight(getContext());
     }
 
+//    @Subscribe(threadMode = ThreadMode.POSTING)
+//    public void onColorChanged(ColorUtils colorUtils){
+//        LogUtils.d("getColorEvent...........................................");
+//        setCoverColor(colorUtils.getColor());
+//    }
 
+    //设置遮罩层颜色
+    public void setCoverColor(int color) {
+        mImageCoverView.setBackgroundColor(color);
+        invalidateView();
+    }
+
+    private void invalidateView() {
+        if(Looper.getMainLooper()==Looper.myLooper()){//如果当前线程为UI线程的话，直接重绘
+            invalidate();
+        }else {//如果不是UI线程,则post到消息队列中，等待自动调用重绘
+            postInvalidate();
+        }
+    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -67,6 +80,7 @@ public class MyScrollView extends ScrollView {
             ViewGroup.LayoutParams topLp = mTopLayout.getLayoutParams();
             mTopHeight = topLp.height;
             ViewGroup.LayoutParams showLp = mShowLayout.getLayoutParams();
+//            showLp.height = mScreenHeight;
             showLp.height = mScreenHeight-ScreenUtils.dp2px(getContext(),20);
             mShowLayout.setLayoutParams(showLp);
             once = true;
@@ -84,8 +98,8 @@ public class MyScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = t * 1.0f / mTopHeight;  //1-0
-        mTopLayout.setTranslationY(mTopHeight * scale);
+        float scale = t * 1.0f / (mTopHeight-ScreenUtils.dp2px(getContext(),20));  //1-0
+        mTopLayout.setTranslationY((mTopHeight-ScreenUtils.dp2px(getContext(),20)) * scale);
         mImageCoverView.setAlpha(scale);
     }
 }

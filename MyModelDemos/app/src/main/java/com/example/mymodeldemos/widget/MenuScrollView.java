@@ -12,7 +12,7 @@ import android.widget.Scroller;
 /**
  * Created by 吴城林 on 2017/7/12.
  */
-
+//包含normalRowView的layout布局
 public class MenuScrollView extends LinearLayout {
 
     private Scroller mScroller;

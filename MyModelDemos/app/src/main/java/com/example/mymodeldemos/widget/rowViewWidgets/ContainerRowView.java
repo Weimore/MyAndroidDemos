@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.mymodeldemos.R;
+import com.example.mymodeldemos.event.OnColorChangedListener;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +26,8 @@ public class ContainerRowView extends LinearLayout {
     private GroupRowView mGroupRowView;
     GroupDescriptor mDescriptor;
     private Context mContext;
+
+    private List<OnColorChangedListener> colorChangedListeners;
 
     public ContainerRowView(Context context) {
         this(context,null);
@@ -40,6 +44,7 @@ public class ContainerRowView extends LinearLayout {
     }
 
     public void initData(List<GroupDescriptor> groupDescriptors, rowClickListener listener) {
+        colorChangedListeners =new ArrayList<>();
         mGroupDescriptors = groupDescriptors;
         mListener = listener;
         if (mGroupDescriptors != null && mGroupDescriptors.size() > 0) {
@@ -47,6 +52,10 @@ public class ContainerRowView extends LinearLayout {
         }else {
             setVisibility(View.GONE);
         }
+    }
+
+    public List<OnColorChangedListener> getColorChangedListeners(){
+        return colorChangedListeners;
     }
 
     private void notifyDataChanged() {
@@ -59,6 +68,8 @@ public class ContainerRowView extends LinearLayout {
             mGroupRowView=new GroupRowView(mContext);
             mGroupRowView.initData(mDescriptor,mListener);
             addView(mGroupRowView);
+
+            colorChangedListeners.addAll(mGroupRowView.getColorChangedListeners());
 
             if(1<mGroupDescriptors.size()){
                 space=new View(mContext);

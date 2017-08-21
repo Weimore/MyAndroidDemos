@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/colorTheme</color>
-    <color name="colorPrimaryDark">@color/colorTheme</color>
+    <color name="colorPrimary">#747474</color>
+    <color name="colorPrimaryDark">#606060</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorTheme">#ed9644</color>  <!--主题色-->
+    <color name="colorTheme">#44c1f2</color>  <!--主题色-->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="lightWhite">#ecebeb</color>  <!--浅白色-->

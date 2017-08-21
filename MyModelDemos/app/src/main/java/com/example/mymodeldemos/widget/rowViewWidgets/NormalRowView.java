@@ -4,36 +4,29 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.os.Looper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.mymodeldemos.R;
-import com.example.mymodeldemos.utils.LogUtils;
+import com.example.mymodeldemos.event.OnColorChangedListener;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
 /**
  * Created by 吴城林 on 2017/7/10.
  */
 
-public class NormalRowView extends RelativeLayout implements View.OnClickListener{
+public class NormalRowView extends RelativeLayout implements View.OnClickListener,OnColorChangedListener{
 
 
     private Context mContext;
@@ -87,6 +80,7 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
 
         init();
     }
+
 
     private void init() {
 //        mRowViewIcon= (ImageView) findViewById(R.id.row_view_icon);
@@ -169,7 +163,6 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
             return;
         }
         mBitmap=null;
-        LogUtils.d("draw.....");
         mBitmap=Bitmap.createBitmap(getMeasuredWidth(),getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(mBitmap);
 
@@ -206,10 +199,17 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
     }
 
     //供外部改变color的方法
-    public void setIconColor(int colorResource){
-        mIconColor=getResources().getColor(colorResource);
+    public void setIconColor(int color){
+        mIconColor=color;
         invalidateView();//改变颜色后需要重新绘制
     }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onColorChanged(int color){
+//        LogUtils.d("getColorEvent...........................................");
+//        setIconColor(color);
+//    }
+
 
     private void invalidateView() {
         if(Looper.getMainLooper()==Looper.myLooper()){//如果当前线程为UI线程的话，直接重绘
@@ -217,5 +217,10 @@ public class NormalRowView extends RelativeLayout implements View.OnClickListene
         }else {//如果不是UI线程,则post到消息队列中，等待自动调用重绘
             postInvalidate();
         }
+    }
+
+    @Override
+    public void changeColor(int color) {
+        setIconColor(color);
     }
 }

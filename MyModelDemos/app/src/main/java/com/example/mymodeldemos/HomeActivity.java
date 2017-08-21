@@ -1,7 +1,6 @@
 package com.example.mymodeldemos;
 
 
-import android.app.ActionBar;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -11,22 +10,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.base.MyBaseActivity;
 import com.example.mymodeldemos.fragment.FirstFragment;
-import com.example.mymodeldemos.model.RowClickedEvent;
-import com.example.mymodeldemos.utils.ImageLoder;
+import com.example.mymodeldemos.event.RowClickedEvent;
+import com.example.mymodeldemos.utils.MyImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.widget.MyToolbar;
-import com.example.mymodeldemos.widget.rowViewWidgets.RowViewEnum;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,7 +72,7 @@ public class HomeActivity extends MyBaseActivity {
         //添加theme图片
         int screenWidth = ScreenUtils.getSreenWidth(this);
         int heightSize = ScreenUtils.dp2px(this, 200);
-        Bitmap bitmap = ImageLoder.decodeSampleBitmapForResource(getResources(), R.drawable.themeimage, screenWidth, heightSize);
+        Bitmap bitmap = MyImageLoder.decodeSampleBitmapForResource(getResources(), R.drawable.themeimage, screenWidth, heightSize);
         mThemeImage.setImageBitmap(bitmap);
     }
 

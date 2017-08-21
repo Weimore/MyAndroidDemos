@@ -7,14 +7,14 @@
     >
 
     <LinearLayout
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <com.example.mymodeldemos.widget.MyScrollView
-            android:id="@+id/myscrollview"
+        <com.example.mymodeldemos.widget.HomeScrollView
+            android:id="@+id/home_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorTheme"
             >
 
             <LinearLayout
@@ -37,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:alpha="0"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorTheme"
                         />
                     <!--该view用于使系统栏一直可见，防止淡色影响-->
                     <View
@@ -56,6 +56,7 @@
 
                     <!--toolbar的布局-->
                     <com.example.mymodeldemos.widget.MyToolbar
+                        android:paddingTop="20dp"
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,11 +80,12 @@
                         android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
-        </com.example.mymodeldemos.widget.MyScrollView>
+        </com.example.mymodeldemos.widget.HomeScrollView>
     </LinearLayout>
 
 
-    <com.example.mymodeldemos.widget.MySlidingMenu
+    <com.example.mymodeldemos.widget.SlidingMenu
+        android:id="@+id/sliding_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -95,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#33000000" />
-    </com.example.mymodeldemos.widget.MySlidingMenu>
+    </com.example.mymodeldemos.widget.SlidingMenu>
     <!--<FrameLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->

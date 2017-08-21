@@ -20,6 +20,7 @@
         app:tabTextColor="@color/lightWhite" />
 
     <TextView
+        android:id="@+id/tab_more"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

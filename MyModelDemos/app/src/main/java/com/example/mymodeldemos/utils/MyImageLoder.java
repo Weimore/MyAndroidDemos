@@ -19,7 +19,7 @@ import libcore.io.DiskLruCache;
  * Created by wn123 on 2017/4/6.
  */
 
-public class ImageLoder {
+public class MyImageLoder {
 
     private Context mContext;
     private LruCache<String, Bitmap> mMemoryCache;  //内存缓存
@@ -27,7 +27,7 @@ public class ImageLoder {
 
     private boolean mIsDiskLruCaheCreated = false;  //判断磁盘缓存是否已经创建
 
-    private ImageLoder(Context context) {
+    private MyImageLoder(Context context) {
         mContext = context.getApplicationContext(); //获取全局context?
         int maxMemorySize = (int) Runtime.getRuntime().maxMemory();
         int mCacheSize = maxMemorySize / 8;
@@ -39,7 +39,6 @@ public class ImageLoder {
         };
 
         try {
-
             File diskFile = getDiskCacheDir(context, "Bitmap");
             if (!diskFile.exists()) {
                 diskFile.mkdir();//如果该文件不存在，则创建

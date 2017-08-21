@@ -12,7 +12,7 @@
         android:scaleType="centerCrop" />
 
     <com.example.mymodeldemos.widget.MenuScrollView
-        android:id="@+id/sliding_menu_scrollview"
+        android:id="@+id/menu_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"

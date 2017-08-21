@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.mymodeldemos.R;
+import com.example.mymodeldemos.event.OnColorChangedListener;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,6 +28,7 @@ public class GroupRowView extends LinearLayout {
     private String mTitle;
 
     private Context mContext;
+    private List<OnColorChangedListener> colorChangedListeners;
 
     public GroupRowView(Context context) {
         this(context, null);
@@ -43,6 +47,7 @@ public class GroupRowView extends LinearLayout {
 
 
     public void initData(GroupDescriptor descriptors, rowClickListener listener) {
+        colorChangedListeners = new ArrayList<>();
         mGroupDescriptor = descriptors;
         mListener = listener;
         mTitle=descriptors.title;
@@ -65,6 +70,8 @@ public class GroupRowView extends LinearLayout {
             mRowView.initDatas(mDescriptor, mListener);
             addView(mRowView);
 
+            colorChangedListeners.add(mRowView);
+
             if (i <mGroupDescriptor.rowDescriptorList.size() - 1) {
                 line = new View(mContext);
                 line.setBackgroundResource(R.color.rowLineColor);
@@ -73,5 +80,9 @@ public class GroupRowView extends LinearLayout {
 
         }
 
+    }
+
+    public List<OnColorChangedListener> getColorChangedListeners() {
+        return colorChangedListeners;
     }
 }

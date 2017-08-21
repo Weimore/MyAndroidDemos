@@ -43,34 +43,34 @@ public class MyToolbar extends Toolbar {
         }
 
         //toolbar上item的点击事件
-        setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-//                    case android.R.id.home:
-//                        mDrawerLayout.openDrawer(GravityCompat.START);
+//        setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+////                    case android.R.id.home:
+////                        mDrawerLayout.openDrawer(GravityCompat.START);
+////                        break;
+//                    case R.id.download_cover:
+//                        Toast.makeText(mContext, "下载封面暂未实装", Toast.LENGTH_SHORT).show();
 //                        break;
-                    case R.id.download_cover:
-                        Toast.makeText(mContext, "下载封面暂未实装", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.switch_cover:
-                        Toast.makeText(mContext, "切换封面暂未实装", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.custon_cover:
-                        Toast.makeText(mContext, "自定义封面暂未实装", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.custom_tag:
-                        Toast.makeText(mContext, "自定义标签暂未实装", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.custom_theme:
-                        Toast.makeText(mContext, "自定义主题暂未实装", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
+//                    case R.id.switch_cover:
+//                        Toast.makeText(mContext, "切换封面暂未实装", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.custon_cover:
+//                        Toast.makeText(mContext, "自定义封面暂未实装", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.custom_tag:
+//                        Toast.makeText(mContext, "自定义标签暂未实装", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.custom_theme:
+//                        Toast.makeText(mContext, "自定义主题暂未实装", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
     }
 
 
