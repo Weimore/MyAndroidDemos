@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NormalRowView">
+        <attr name="rowTextSize" format="dimension"/>
+        <attr name="rowIconColor" format="color"/>
+    </declare-styleable>
+</resources>

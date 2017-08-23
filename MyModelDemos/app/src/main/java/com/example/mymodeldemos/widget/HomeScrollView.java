@@ -22,11 +22,13 @@ public class HomeScrollView extends ScrollView {
     private ViewGroup mTopLayout;
     private ViewGroup mShowLayout;
     private View mImageCoverView;
+    private View myToolbar;
 
     private boolean once;   //保证只measure一次
 
     private int mScreenHeight;   //用于测量该view高度
-    private int mTopHeight=180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
+    private int mTopHeight = 180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
+    private float skewNum = 0.8f;
 
 
     public HomeScrollView(Context context) {
@@ -60,9 +62,9 @@ public class HomeScrollView extends ScrollView {
     }
 
     private void invalidateView() {
-        if(Looper.getMainLooper()==Looper.myLooper()){//如果当前线程为UI线程的话，直接重绘
+        if (Looper.getMainLooper() == Looper.myLooper()) {//如果当前线程为UI线程的话，直接重绘
             invalidate();
-        }else {//如果不是UI线程,则post到消息队列中，等待自动调用重绘
+        } else {//如果不是UI线程,则post到消息队列中，等待自动调用重绘
             postInvalidate();
         }
     }
@@ -75,13 +77,14 @@ public class HomeScrollView extends ScrollView {
             mWrapper = (LinearLayout) getChildAt(0);
             mTopLayout = (ViewGroup) mWrapper.getChildAt(0);
             mShowLayout = (ViewGroup) mWrapper.getChildAt(1);
-            mImageCoverView=mTopLayout.getChildAt(1);
+            mImageCoverView = mTopLayout.getChildAt(1);
+            myToolbar = mTopLayout.getChildAt(4);
 
             ViewGroup.LayoutParams topLp = mTopLayout.getLayoutParams();
             mTopHeight = topLp.height;
             ViewGroup.LayoutParams showLp = mShowLayout.getLayoutParams();
 //            showLp.height = mScreenHeight;
-            showLp.height = mScreenHeight-ScreenUtils.dp2px(getContext(),20);
+            showLp.height = mScreenHeight - ScreenUtils.dp2px(getContext(), 20);
             mShowLayout.setLayoutParams(showLp);
             once = true;
         }
@@ -95,11 +98,23 @@ public class HomeScrollView extends ScrollView {
         }
     }
 
+    //供外部调用，用来设置偏移效果，只能取值0 - 1.0f,否则默认不偏移
+    //取值越小，偏移幅度越大
+    public void setSkew(float num) {
+        if (num < 0 && num > 1.0f) {
+            return;
+        }
+        this.skewNum = num;
+    }
+
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = t * 1.0f / (mTopHeight-ScreenUtils.dp2px(getContext(),20));  //1-0
-        mTopLayout.setTranslationY((mTopHeight-ScreenUtils.dp2px(getContext(),20)) * scale);
+        float scale = t * 1.0f/ (mTopHeight - ScreenUtils.dp2px(getContext(), 20));  //1 -- 0
+        float translation = (mTopHeight - ScreenUtils.dp2px(getContext(), 20)) * scale;  //(mTopHeight-20dp) -- 0
+        mTopLayout.setTranslationY(translation* (skewNum));
+        myToolbar.setTranslationY(translation * (1 - skewNum));  //toolbar不能偏移
         mImageCoverView.setAlpha(scale);
+        invalidateView();
     }
 }

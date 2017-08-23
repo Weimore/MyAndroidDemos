@@ -1,106 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawlayout"
+    android:id="@id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorTheme"
     >
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="@color/colorTheme"
-                app:layout_scrollFlags="scroll"
-                app:titleEnabled="false">  <!--?-->
-                <ImageView
-                    android:id="@+id/theme_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="1" />   <!--?-->
-                <View
-                    android:id="@+id/image_cover_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorTheme"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="1" />
-                <!--该view用于使系统栏一直可见，防止淡色影响-->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="@drawable/systagprotect"
-                    android:fitsSystemWindows="true" />
-
-                <!--搜索图片框-->
-                <!--<include layout="@layout/search_tab"/>-->
-                <com.example.mymodeldemos.widget.SearchBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="15dp"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="1" />
-
-                <!--toolbar的布局-->
-                <com.example.mymodeldemos.widget.MyToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="?attr/actionBarSize"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="1"
-                    app:theme="@style/ToolbarTheme" />
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-            <!--引入tab和title的布局-->
-            <include layout="@layout/tab_title_layout" />
-        </android.support.design.widget.AppBarLayout>
-
-        <android.support.v4.widget.NestedScrollView
+        >
+        <com.example.mymodeldemos.widget.HomeScrollView
+            android:id="@+id/home_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/view_pager"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/theme_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />   <!--?-->
+                    <View
+                        android:id="@+id/image_cover_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0"
+                        android:background="@color/colorTheme"
+                        />
+                    <!--该view用于使整个ThemeImage 一直可见，防止淡色影响-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/systagprotect"
+                         />
+
+                    <!--搜索图片框-->
+                    <!--<include layout="@layout/search_tab"/>-->
+                    <com.example.mymodeldemos.widget.SearchBar
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="15dp" />
+
+                    <!--toolbar的布局-->
+                    <!--<com.example.mymodeldemos.widget.MyToolbar-->
+                        <!--android:paddingTop="20dp"-->
+                        <!--android:id="@+id/toolbar"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:minHeight="?attr/actionBarSize"-->
+                        <!--app:popupTheme="@style/Theme.AppCompat.Light"-->
+                        <!--android:theme="@style/ToolbarTheme"-->
+                        <!--/>-->
+                    <include layout="@layout/toobar_layout"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <include layout="@layout/tab_title_layout" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.example.mymodeldemos.widget.HomeScrollView>
+    </LinearLayout>
+
 
     <com.example.mymodeldemos.widget.SlidingMenu
+        android:id="@+id/sliding_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:clickable="true"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="15dp">       <!--可以减小滑动菜单的宽度-->
+
         <!--该view用于使系统栏一直可见，防止淡色影响-->
         <View xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#33000000" />
     </com.example.mymodeldemos.widget.SlidingMenu>
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start">-->
 
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:text="hello" />-->
+        <!--&lt;!&ndash;该view用于使系统栏一直可见，防止淡色影响&ndash;&gt;-->
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="#33000000" />-->
+    <!--</FrameLayout>-->
 </android.support.v4.widget.DrawerLayout>
-
-

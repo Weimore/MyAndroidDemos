@@ -11,12 +11,13 @@ public class GroupDescriptor {
     List<RowDescriptor> rowDescriptorList;
     String title;
 
+    public GroupDescriptor(List<RowDescriptor> rowDescriptorList) {
+        this(rowDescriptorList,null);
+    }
+
     public GroupDescriptor(List<RowDescriptor> rowDescriptorList, String title) {
         this.rowDescriptorList = rowDescriptorList;
         this.title = title;
     }
 
-    public GroupDescriptor(List<RowDescriptor> rowDescriptorList) {
-        this(rowDescriptorList,null);
-    }
 }

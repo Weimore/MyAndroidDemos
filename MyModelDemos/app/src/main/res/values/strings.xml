@@ -3,6 +3,8 @@
     <!--app的名字-->
     <string name="app_name">RellaApp</string>
 
+    <!--<string name="base_title">""</string>-->
+
     <!--开关button的两个动画-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
+import com.example.mymodeldemos.application.AppStatusTracker;
+import com.example.mymodeldemos.application.ConfigType;
+import com.example.mymodeldemos.application.Configurator;
 import com.example.mymodeldemos.utils.LogUtils;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener{
@@ -16,10 +18,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Configurator.getAppConfig().put(ConfigType.APP_STATUS.name(), AppStatusTracker.STATUS_OFF_LINE);  //将被强杀模式设为正常离线模式
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Intent intent = new Intent(SplashActivity.this,SecondActivity.class);
+        Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
         initSplash(intent,R.drawable.rella4,2000);
     }
 
@@ -55,7 +58,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        threadfinish = true;
+//        super.onBackPressed();
+//        threadfinish = true;
     }
 }
