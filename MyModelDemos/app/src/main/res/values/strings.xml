@@ -11,13 +11,11 @@
 
     <!--tab里的标签名-->
     <array name="tab_title">
-        <item>美图</item>
+        <item>热门分类</item>
+        <item>妹子</item>
         <item>趣事</item>
         <item>新闻</item>
-        <item>条漫</item>
         <item>绘画</item>
-        <item>小说</item>
-        <item>娱乐</item>
         <item>萌宠</item>
     </array>
 

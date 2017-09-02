@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="lightWhite">#ecebeb</color>  <!--浅白色-->
+    <color name="transparantBlack">#aa464646</color>
     <color name="searchBarColor">#aaffffff</color>   <!--查询图片栏的透明色-->
     <color name="rowLineColor">#e7e1e1</color>
 </resources>

@@ -10,6 +10,9 @@ import android.view.WindowManager;
 import com.example.mymodeldemos.application.AppStatusTracker;
 import com.example.mymodeldemos.application.ConfigType;
 import com.example.mymodeldemos.application.Configurator;
+import com.example.mymodeldemos.sample.SampleMultipleListActivity;
+import com.example.mymodeldemos.sample.SampleNewListActivity;
+import com.example.mymodeldemos.sample.SampleNewMultipleListActivity;
 import com.example.mymodeldemos.utils.LogUtils;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener{
@@ -22,7 +25,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        Intent intent = new Intent(SplashActivity.this,HomeActivity.class);
+        Intent intent = new Intent(SplashActivity.this,SampleNewListActivity.class);
         initSplash(intent,R.drawable.rella4,2000);
     }
 

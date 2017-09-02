@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mymodeldemos.utils.LogUtils;
+
 /**
  * Created by 吴城林 on 2017/7/6.
  */
@@ -16,8 +18,12 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("aaa","created");
+//        onFragmentCreate(savedInstanceState);
     }
+
+//    //fragment创建出来时调用该方法
+//    public void onFragmentCreate(Bundle savedInstanceState) {
+//    }
 
     @Nullable
     @Override
@@ -26,8 +32,14 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("aaa","destroyed");
     }
+
 }

@@ -20,7 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity android:name=".sample.SampleListActivity"/>
+        <activity android:name=".sample.SampleSectionListActivity"/>
+        <activity android:name=".sample.SampleMultipleListActivity"/>
+        <activity android:name=".sample.SampleNewMultipleListActivity"/>
+        <activity android:name=".sample.SampleNewListActivity"/>
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.base.BaseActivity;
-import com.example.mymodeldemos.fragment.FirstFragment;
+import com.example.mymodeldemos.fragment.SampleListFragment;
 import com.example.mymodeldemos.event.RowClickedEvent;
 import com.example.mymodeldemos.utils.MyImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//弃用
 public class NotUsedHomeActivity extends BaseActivity {
 
     private DrawerLayout mDrawerLayout;
@@ -45,7 +45,7 @@ public class NotUsedHomeActivity extends BaseActivity {
     private MyToolbar mToolbar;
 
     private String[] mTitles;
-    private FirstFragment firstFrag;
+    private SampleListFragment firstFrag;
     private List<Fragment> mFragments = new ArrayList<>();
 
     @Override
@@ -66,7 +66,7 @@ public class NotUsedHomeActivity extends BaseActivity {
         mTitles = getResources().getStringArray(R.array.tab_title);
 
         for (int i = 0; i < mTitles.length; i++) {
-            firstFrag = new FirstFragment();
+            firstFrag = new SampleListFragment();
             mFragments.add(firstFrag);
         }
         mAdapter = new TabTitleAdapter(getSupportFragmentManager(), mFragments, mTitles);

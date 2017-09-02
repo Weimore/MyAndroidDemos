@@ -11,7 +11,7 @@ import com.example.mymodeldemos.R;
 /**
  * Created by 吴城林 on 2017/7/30.
  */
-
+//弃用
 public class MyToolbar extends Toolbar {
     private final Context mContext;
 

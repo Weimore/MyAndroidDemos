@@ -94,6 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(@LayoutRes int layoutResID, CharSequence titleContent, int mode, int menuResID, int drawerLayoutResID) {
         super.setContentView(layoutResID);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         if (toolbar == null) {
             Toast.makeText(this, "toobar未获得", Toast.LENGTH_SHORT).show();
             return;  //如果不存在toobar，则返回

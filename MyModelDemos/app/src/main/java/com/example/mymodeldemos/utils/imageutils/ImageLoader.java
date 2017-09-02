@@ -1,6 +1,5 @@
 package com.example.mymodeldemos.utils.imageutils;
 
-import android.content.Context;
 import android.view.View;
 
 /**
@@ -9,7 +8,7 @@ import android.view.View;
 //对各种处理图片的框架进行再封装
 public class ImageLoader{
     private static ImageLoader imageLoader = new ImageLoader();
-    private ImageLoaderStrategy strategy;
+    private IImageLoaderStrategy strategy;
 
     //获得ImageLoader实例
     public static ImageLoader getInstance() {
@@ -22,7 +21,7 @@ public class ImageLoader{
     }
 
     //设置采用哪种框架
-    public void setStrategy(ImageLoaderStrategy strategy) {
+    public void setStrategy(IImageLoaderStrategy strategy) {
         this.strategy = strategy;
     }
 

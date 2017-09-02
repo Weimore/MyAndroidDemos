@@ -7,7 +7,7 @@ import android.view.View;
  * Created by 吴城林 on 2017/8/21.
  */
 
-public interface ImageLoaderStrategy {
+public interface IImageLoaderStrategy {
     void showImage( View v, String url, ImageLoaderOptions options);
     void showImage(View v,int drawable,ImageLoaderOptions options);
 }

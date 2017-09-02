@@ -3,6 +3,7 @@ package com.example.mymodeldemos.widget;
 import android.content.Context;
 import android.os.Looper;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ public class HomeScrollView extends ScrollView {
     private int mTopHeight = 180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
     private float skewNum = 0.8f;
 
+    private int mLastYIntercept = 0;
 
     public HomeScrollView(Context context) {
         this(context, null);
@@ -110,11 +112,38 @@ public class HomeScrollView extends ScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        float scale = t * 1.0f/ (mTopHeight - ScreenUtils.dp2px(getContext(), 20));  //1 -- 0
+        float scale = t * 1.0f / (mTopHeight - ScreenUtils.dp2px(getContext(), 20));  //1 -- 0
         float translation = (mTopHeight - ScreenUtils.dp2px(getContext(), 20)) * scale;  //(mTopHeight-20dp) -- 0
-        mTopLayout.setTranslationY(translation* (skewNum));
+        mTopLayout.setTranslationY(translation * (skewNum));
         myToolbar.setTranslationY(translation * (1 - skewNum));  //toolbar不能偏移
         mImageCoverView.setAlpha(scale);
         invalidateView();
     }
+
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        boolean intercepted = false;
+////        int x = (int) ev.getX();
+//        int y = (int) ev.getY();
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                intercepted = false;
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                int detalY = y - mLastYIntercept;
+//                if (getScrollY() != mTopHeight-ScreenUtils.dp2px(getContext(),20)) {
+//                    intercepted = true;
+//                } else {
+//                    intercepted = false;
+//                }
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                intercepted = false;
+//                break;
+//            default:
+//                break;
+//        }
+//        mLastYIntercept = y;
+//        return intercepted;
+//    }
 }

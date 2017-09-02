@@ -2,4 +2,7 @@
 <resources>
     <item name="toolbar" type="id"/>
     <item name="drawer" type="id"/>
+    <item name="swiperefresh" type="id"/>
+    <item name="recyclerview" type="id"/>
+    <item name="refresh_recyclerview" type="id"/>
 </resources>

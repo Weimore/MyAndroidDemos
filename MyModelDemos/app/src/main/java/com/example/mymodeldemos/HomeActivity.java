@@ -3,15 +3,11 @@ package com.example.mymodeldemos;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.graphics.Palette;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,12 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mymodeldemos.adapter.TabTitleAdapter;
 import com.example.mymodeldemos.base.BaseActivity;
-import com.example.mymodeldemos.fragment.FirstFragment;
+import com.example.mymodeldemos.fragment.SampleListFragment;
 import com.example.mymodeldemos.event.RowClickedEvent;
 import com.example.mymodeldemos.utils.MyImageLoder;
 import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.widget.HomeScrollView;
-import com.example.mymodeldemos.widget.MyToolbar;
 import com.example.mymodeldemos.widget.SlidingMenu;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +35,6 @@ import java.util.List;
  */
 
 public class HomeActivity extends BaseActivity {
-//    private DrawerLayout mDrawerLayout;
     private SlidingMenu mSlidingMenu;
     private HomeScrollView mHomeScrollView;
     private TabLayout mTabLayout;
@@ -48,26 +42,10 @@ public class HomeActivity extends BaseActivity {
     private ViewPager mViewPager;
     private TabTitleAdapter mAdapter;
     private ImageView mThemeImage;
-//    private MyToolbar mToolbar;
-
 
     private String[] mTitles;
-    private FirstFragment firstFrag;
+    private SampleListFragment firstFrag;
     private List<Fragment> mFragments = new ArrayList<>();
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_home);
-////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-////            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-////            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-////        }
-//
-//        initView();
-//        initData();
-//        EventBus.getDefault().register(this);
-//    }
 
     @Override
     protected void setUpContentView() {
@@ -80,7 +58,7 @@ public class HomeActivity extends BaseActivity {
         mTitles = getResources().getStringArray(R.array.tab_title);
 
         for (int i = 0; i < mTitles.length; i++) {
-            firstFrag = new FirstFragment();
+            firstFrag = new SampleListFragment();
             mFragments.add(firstFrag);
         }
         mAdapter = new TabTitleAdapter(getSupportFragmentManager(), mFragments, mTitles);
@@ -100,13 +78,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void setUpView() {
         super.setUpView();
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawlayout);
-//        mToolbar = (MyToolbar) findViewById(R.id.toolbar);
-//        mToolbar.initToolbar(this);
-//        ActionBarDrawerToggle mToogle = new ActionBarDrawerToggle(        //设定drawLayout的开关及动画
-//                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        mToogle.syncState();
-//        mDrawerLayout.setDrawerListener(mToogle);           //让ActionBarDrawerToggle监听drawerLayout的开关状态
 
         mSlidingMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
         mHomeScrollView = (HomeScrollView) findViewById(R.id.home_scrollview);
@@ -123,7 +94,8 @@ public class HomeActivity extends BaseActivity {
         Toast.makeText(this, "You clicked :" + event.rowViewEnum.name(), Toast.LENGTH_SHORT).show();
         switch (event.rowViewEnum) {
             case PROFILE://个人中心
-
+//                Intent intent = new Intent(this,SampleSectionListActivity.class);
+//                startActivity(intent);
                 break;
             case SEARCH_PICTURE://以图搜图
 
@@ -153,9 +125,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected boolean onToolBarMenuSelected(MenuItem item){
         switch (item.getItemId()) {
-//            case android.R.id.home:
-//                drawerLayout.openDrawer(GravityCompat.START);
-//                break;
             case R.id.download_cover:
                 Toast.makeText(this, "下载封面暂未实装", Toast.LENGTH_SHORT).show();
                 break;
@@ -189,15 +158,6 @@ public class HomeActivity extends BaseActivity {
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-
-//                Palette.Swatch swatch = palette.getVibrantSwatch();  //充满活力的色调
-//                Palette.Swatch swatch = palette.getLightVibrantSwatch();  //充满活力的亮色调
-//                Palette.Swatch swatch = palette.getDarkVibrantSwatch();  //充满活力的暗色调
-
-//                Palette.Swatch swatch = palette.getMutedSwatch();  //柔和的色调
-//                Palette.Swatch swatch = palette.getLightMutedSwatch();  //柔和的亮色调
-//                Palette.Swatch swatch = palette.getDarkMutedSwatch();  //柔和的暗色调
-//
                 int color;
                 Palette.Swatch swatch = palette.getDominantSwatch();
                 if (swatch == null) {
@@ -230,11 +190,5 @@ public class HomeActivity extends BaseActivity {
         mHomeScrollView.setCoverColor(darkColor);
         mSlidingMenu.changerColor(color);
 
-//        EventBus.getDefault().post(color);
-//        if (android.os.Build.VERSION.SDK_INT >= 21) {
-//            Window window = getWindow();
-//            window.setStatusBarColor(colorBurn(color));
-//            window.setNavigationBarColor(colorBurn(color));
-//        }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.mymodeldemos.utils.imageutils;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,7 +10,7 @@ import com.bumptech.glide.Glide;
  * Created by 吴城林 on 2017/8/21.
  */
 
-public class GlideImageLoaderStrategy implements ImageLoaderStrategy {
+public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
     @Override
     public void showImage(View v, String url, ImageLoaderOptions options) {
         if(v instanceof ImageView){
