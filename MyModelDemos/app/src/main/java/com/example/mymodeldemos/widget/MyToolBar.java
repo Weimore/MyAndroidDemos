@@ -26,7 +26,7 @@ public class MyToolbar extends Toolbar {
     public MyToolbar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext=context;
-        inflateMenu(R.menu.toolbar);
+        inflateMenu(R.menu.toolbar_menu);
     }
 
     //对toolbar进行一些设置

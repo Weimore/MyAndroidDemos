@@ -27,7 +27,8 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/colorTheme"
                 app:layout_scrollFlags="scroll"
-                app:titleEnabled="false">  <!--?-->
+                app:titleEnabled="false"
+                >  <!--?-->
                 <ImageView
                     android:id="@+id/theme_image"
                     android:layout_width="match_parent"

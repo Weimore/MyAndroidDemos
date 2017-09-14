@@ -104,8 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         //加载menu
         if (menuResID != MENU_NONE) {
-//            toolbar.getMenu().clear();
-//            toolbar.inflateMenu(menuResID);
+//            toolbar_menu.getMenu().clear();
+//            toolbar_menu.inflateMenu(menuResID);
             this.menuResID =menuResID;
             LogUtils.d("getMenu........................");
         }

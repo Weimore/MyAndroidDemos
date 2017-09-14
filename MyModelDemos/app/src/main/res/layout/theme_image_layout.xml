@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/theme_top_layout"
+    app:layout_scrollFlags="scroll"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:fitsSystemWindows="true"
+    >
+
+    <ImageView
+        android:id="@+id/theme_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:fitsSystemWindows="true"
+        />   <!--?-->
+
+    <!--该view用于使整个ThemeImage 一直可见，防止淡色影响-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/systagprotect"
+        android:fitsSystemWindows="true"
+        />
+
+    <!--搜索图片框-->
+    <!--<include layout="@layout/search_tab"/>-->
+    <com.example.mymodeldemos.widget.SearchBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        />
+
+    <View
+        android:id="@+id/image_cover_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorTheme" />
+
+    <include layout="@layout/toobar_layout" />
+
+</RelativeLayout>

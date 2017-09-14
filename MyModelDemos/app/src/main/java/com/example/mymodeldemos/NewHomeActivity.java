@@ -3,6 +3,7 @@ package com.example.mymodeldemos;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,16 +11,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mymodeldemos.base.BaseActivity;
+import com.example.mymodeldemos.event.RowClickedEvent;
+import com.example.mymodeldemos.fragment.FuliFragment;
 import com.example.mymodeldemos.fragment.IChangeTextColor;
 import com.example.mymodeldemos.fragment.SampleListFragment;
-import com.example.mymodeldemos.event.RowClickedEvent;
+import com.example.mymodeldemos.utils.ScreenUtils;
 import com.example.mymodeldemos.utils.imageutils.ImageLoader;
-import com.example.mymodeldemos.widget.HomeScrollView;
 import com.example.mymodeldemos.widget.SlidingMenu;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,36 +33,69 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 吴城林 on 2017/7/8.
- */
-
-public class HomeActivity extends BaseActivity {
+public class NewHomeActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
     private SlidingMenu mSlidingMenu;
-    private HomeScrollView mHomeScrollView;
+    private AppBarLayout mAppBarLayout;
     private TabLayout mTabLayout;
     private TextView mTabMore;
     private ViewPager mViewPager;
+    private RelativeLayout mTopLayout;
     private FragmentStatePagerAdapter mAdapter;
     private ImageView mThemeImage;
+    private View mImageCoverView;
 
     private String[] mTitles;
-    private SampleListFragment firstFrag;
+
     private List<IChangeTextColor> mFragments = new ArrayList<>();
+    private int mTopLayoutHeight;
 
     @Override
     protected void setUpContentView() {
-        setContentView(R.layout.activity_home, "", MODE_DRAWER, R.menu.toolbar_menu,R.id.drawer);
+        setContentView(R.layout.activity_new_home, "", MODE_DRAWER, R.menu.toolbar_menu,R.id.drawer);
+    }
+
+    @Override
+    protected void setUpView() {
+        super.setUpView();
+
+        mSlidingMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.home_appbar_layout);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mTopLayout = (RelativeLayout) findViewById(R.id.theme_top_layout);
+        mTabMore = (TextView) findViewById(R.id.tab_more);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mThemeImage = (ImageView) findViewById(R.id.theme_image);
+        mImageCoverView = findViewById(R.id.image_cover_view);
+
     }
 
     @Override
     protected void setUpData() {
         super.setUpData();
         mTitles = getResources().getStringArray(R.array.tab_title);
+        initFragments();
+        initAdapter();
+        setTopLayout();
+        mViewPager.setAdapter(mAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
-        setFragments();
+        //添加theme图片
+        changeThemeImage(R.drawable.themeimage);
+        EventBus.getDefault().register(this);
+    }
 
-        mViewPager.setAdapter(mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+    private void setTopLayout() {
+        mTopLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mTopLayoutHeight = mTopLayout.getHeight() ;
+            }
+        });
+    }
+
+
+    private void initAdapter() {
+        mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return mFragments.get(position).getFragment();
@@ -73,34 +110,24 @@ public class HomeActivity extends BaseActivity {
             public CharSequence getPageTitle(int position) {
                 return mTitles[position];
             }
-        });
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        //添加theme图片
-//        ImageLoader.getInstance().showImage(mThemeImage,R.drawable.themeimage);
-        changeThemeImage(R.drawable.themeimage);
-        EventBus.getDefault().register(this);
+        };
     }
 
-    private void setFragments() {
-        for (int i = 0; i < mTitles.length; i++) {
-            firstFrag = new SampleListFragment();
-            mFragments.add(firstFrag);
-        }
-    }
+    private void initFragments() {
+//        SampleListFragment firstFrag;
+//        for (int i = 0; i < mTitles.length; i++) {
+//            firstFrag = new SampleListFragment();
+//            mFragments.add(firstFrag);
+//        }
+        SampleListFragment firstFrag = new SampleListFragment();
+        mFragments.add(firstFrag);
+        FuliFragment secondFrag = new FuliFragment();
+        mFragments.add(secondFrag);
 
-    @Override
-    protected void setUpView() {
-        super.setUpView();
-
-        mSlidingMenu = (SlidingMenu) findViewById(R.id.sliding_menu);
-        mHomeScrollView = (HomeScrollView) findViewById(R.id.home_scrollview);
-        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTabMore = (TextView) findViewById(R.id.tab_more);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mThemeImage = (ImageView) findViewById(R.id.theme_image);
 
     }
+
+
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onGetRowClickEvent(RowClickedEvent event) {
@@ -112,7 +139,7 @@ public class HomeActivity extends BaseActivity {
 //                startActivity(intent);
                 break;
             case SEARCH_PICTURE://以图搜图
-
+                showDialog();
                 break;
             case SUPPORT://续一秒
 
@@ -127,6 +154,10 @@ public class HomeActivity extends BaseActivity {
 
                 break;
         }
+
+    }
+
+    private void showDialog() {
 
     }
 
@@ -202,11 +233,33 @@ public class HomeActivity extends BaseActivity {
         // 获取color，然后再分别设置给每个部件
         mTabLayout.setBackgroundColor(color);
         mTabMore.setBackgroundColor(color);
-        mHomeScrollView.setCoverColor(darkColor);
+        mImageCoverView.setBackgroundColor(darkColor);
         mSlidingMenu.changerColor(color);
         for (IChangeTextColor mFragment : mFragments){
             mFragment.setColor(color);
         }
-//        mFragments.get(mViewPager.getCurrentItem()).setColor(color);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAppBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAppBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        int v = Math.abs(verticalOffset);
+        float scale = v * 1.0f / mTopLayoutHeight;  //0 -- 1
+        float alpha = v * 1.0f / (mTopLayoutHeight - ScreenUtils.dp2px(this,20) );
+        float translation = mTopLayoutHeight * scale;
+//        LogUtils.e("mTopHeight:"+mTopLayoutHeight+"..." + "scale:"+scale +"..."+"translation:"+translation);
+        mTopLayout.setTranslationY(translation);
+        mImageCoverView.setAlpha(alpha);
     }
 }

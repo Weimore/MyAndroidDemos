@@ -11,14 +11,14 @@ import java.util.List;
  */
 
 public class MyApplication extends Application{
-//    public static MyApplication myApplication;
+    public static MyApplication myApplication;
 //    public static List<String> profile;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LogUtils.d("application create............................");
-//        myApplication=this;
+        myApplication=this;
         AppStatusTracker.getInstance().init(this).Configurate();
     }
 }

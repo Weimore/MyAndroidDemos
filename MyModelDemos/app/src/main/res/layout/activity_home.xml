@@ -22,50 +22,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="230dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/theme_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop" />   <!--?-->
-                    <View
-                        android:id="@+id/image_cover_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0"
-                        android:background="@color/colorTheme"
-                        />
-                    <!--该view用于使整个ThemeImage 一直可见，防止淡色影响-->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/systagprotect"
-                         />
-
-                    <!--搜索图片框-->
-                    <!--<include layout="@layout/search_tab"/>-->
-                    <com.example.mymodeldemos.widget.SearchBar
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="15dp" />
-
-                    <!--toolbar的布局-->
-                    <!--<com.example.mymodeldemos.widget.MyToolbar-->
-                        <!--android:paddingTop="20dp"-->
-                        <!--android:id="@+id/toolbar"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:minHeight="?attr/actionBarSize"-->
-                        <!--app:popupTheme="@style/Theme.AppCompat.Light"-->
-                        <!--android:theme="@style/ToolbarTheme"-->
-                        <!--/>-->
-                    <include layout="@layout/toobar_layout"/>
-                </RelativeLayout>
+                <include layout="@layout/theme_image_layout"/>  <!--上面主题图片部分布局-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -99,20 +56,5 @@
             android:layout_height="20dp"
             android:background="#33000000" />
     </com.example.mymodeldemos.widget.SlidingMenu>
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="start">-->
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="#fff"-->
-            <!--android:text="hello" />-->
-        <!--&lt;!&ndash;该view用于使系统栏一直可见，防止淡色影响&ndash;&gt;-->
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="20dp"-->
-            <!--android:background="#33000000" />-->
-    <!--</FrameLayout>-->
 </android.support.v4.widget.DrawerLayout>

@@ -1,12 +1,15 @@
 package com.example.mymodeldemos.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mymodeldemos.R;
 import com.example.mymodeldemos.widget.refreshRecyclerWidgets.OnRecyclerRefreshListener;
 import com.example.mymodeldemos.widget.refreshRecyclerWidgets.RefreshRecyclerView;
@@ -18,45 +21,42 @@ import java.util.List;
  * Created by 吴城林 on 2017/8/26.
  */
 
-public abstract class BaseListFragment<T> extends BaseFragment implements OnRecyclerRefreshListener{
+public abstract class BaseListFragment<T> extends BaseFragment implements OnRecyclerRefreshListener {
 
     protected RefreshRecyclerView recycler;
     protected List<T> dataList;
+    protected BaseQuickAdapter adapter;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setUpData(Bundle saveInstanceState) {
+        super.setUpData(saveInstanceState);
         dataList = new ArrayList<>();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = createView(inflater,container,savedInstanceState);
-        recycler = view.findViewById(R.id.refresh_recyclerview);
-        return view;
-    }
-
-    protected abstract View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         recycler.setOnRefreshListener(this);
+        recycler.setAdapter(setUpAdapter());
+        recycler.setLayoutManager(setLayoutManager());;
+        adapter.setOnLoadMoreListener(setOnLoadMoreListener(), recycler.getRecyclerView());
     }
 
-    protected void setAdapter(RecyclerView.Adapter adapter){
-        recycler.setAdapter(adapter);
+    protected abstract BaseQuickAdapter.RequestLoadMoreListener setOnLoadMoreListener();
+
+    @Override
+    protected void setUpView(View view, Bundle saveInstanceState) {
+        super.setUpView(view, saveInstanceState);
+        recycler = view.findViewById(R.id.refresh_recyclerview);
     }
 
-    protected void addItemDecroation(RecyclerView.ItemDecoration itemDecoration){
+
+    protected abstract BaseQuickAdapter setUpAdapter();
+
+    protected void addItemDecroation(RecyclerView.ItemDecoration itemDecoration) {
         recycler.addItemDecoration(itemDecoration);
     }
 
-    protected void setLayoutManager(RecyclerView.LayoutManager manager){
-        recycler.setLayoutManager(manager);
+    protected RecyclerView.LayoutManager setLayoutManager() {
+        return new LinearLayoutManager(context);
     }
 
-    protected void onRefreshComplete(){
+    protected void onRefreshComplete() {
         recycler.onRefreshComplete();
     }
 

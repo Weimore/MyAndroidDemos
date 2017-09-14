@@ -18,7 +18,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
             //装配基本的参数
             DrawableTypeRequest request = Glide.with(imageView.getContext()).load(url);
             //装配各种参数
-            loadOptions(request,options).into(imageView);
+            loadOptions(request,options).asBitmap().into(imageView);
         }
     }
 
@@ -27,7 +27,7 @@ public class GlideImageLoaderStrategy implements IImageLoaderStrategy {
         if(v instanceof ImageView){
             ImageView imageView = (ImageView)v;
             DrawableTypeRequest request = Glide.with(imageView.getContext()).load(drawable);
-            loadOptions(request,options);
+            loadOptions(request,options).asBitmap().into(imageView);
         }
     }
 

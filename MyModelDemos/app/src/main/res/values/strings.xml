@@ -13,10 +13,12 @@
     <array name="tab_title">
         <item>热门分类</item>
         <item>妹子</item>
-        <item>趣事</item>
-        <item>新闻</item>
-        <item>绘画</item>
-        <item>萌宠</item>
+        <!--<item>Android</item>-->
+        <!--<item>IOS</item>-->
+        <!--<item>趣事</item>-->
+        <!--<item>新闻</item>-->
+        <!--<item>绘画</item>-->
+        <!--<item>萌宠</item>-->
     </array>
 
     <!-- TODO: Remove or change this placeholder text -->

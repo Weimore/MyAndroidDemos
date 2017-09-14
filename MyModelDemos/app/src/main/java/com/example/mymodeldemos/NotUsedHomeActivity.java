@@ -148,7 +148,7 @@ public class NotUsedHomeActivity extends BaseActivity {
     //加载toolbar布局为menu形式
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
 

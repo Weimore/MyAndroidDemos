@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.example.mymodeldemos.utils.LogUtils;
 import com.example.mymodeldemos.utils.ScreenUtils;
 
 /**
  * Created by 吴城林 on 2017/7/8.
  * 为SecondActivity自定义的滚动View
  * 当前问题：和系统栏不兼容(已解决)
+ * not used
  */
 
 public class HomeScrollView extends ScrollView {
@@ -29,7 +31,7 @@ public class HomeScrollView extends ScrollView {
 
     private int mScreenHeight;   //用于测量该view高度
     private int mTopHeight = 180;  //该高度即为顶部图片布局高度，用来计算覆盖层alpha值
-    private float skewNum = 0.8f;
+    private float skewNum =0.8f;  //默认为 1.0f 不偏移，为 0 时完全跟着偏移
 
     private int mLastYIntercept = 0;
 
@@ -79,7 +81,7 @@ public class HomeScrollView extends ScrollView {
             mWrapper = (LinearLayout) getChildAt(0);
             mTopLayout = (ViewGroup) mWrapper.getChildAt(0);
             mShowLayout = (ViewGroup) mWrapper.getChildAt(1);
-            mImageCoverView = mTopLayout.getChildAt(1);
+            mImageCoverView = mTopLayout.getChildAt(3);
             myToolbar = mTopLayout.getChildAt(4);
 
             ViewGroup.LayoutParams topLp = mTopLayout.getLayoutParams();
@@ -117,6 +119,7 @@ public class HomeScrollView extends ScrollView {
         mTopLayout.setTranslationY(translation * (skewNum));
         myToolbar.setTranslationY(translation * (1 - skewNum));  //toolbar不能偏移
         mImageCoverView.setAlpha(scale);
+//        LogUtils.e("scale "+scale+"............................................");
         invalidateView();
     }
 
