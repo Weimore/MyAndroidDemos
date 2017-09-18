@@ -15,4 +15,11 @@ public class StringUtils {
         }
         return "error";
     }
+
+    public static String getData(String content){
+        String date[] = content.split("-");
+        StringBuilder result = new StringBuilder();
+        result.append(date[0]).append("/").append(date[1]).append("/").append(date[2]);
+        return result.toString();
+    }
 }

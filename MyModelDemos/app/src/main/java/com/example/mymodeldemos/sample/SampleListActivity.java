@@ -57,7 +57,6 @@ public class SampleListActivity extends BaseListActivity {
 
             }
         }, 1000);
-        LogUtils.d("sendMessage..................................");
     }
 
     BaseQuickAdapter.RequestLoadMoreListener listener = new BaseQuickAdapter.RequestLoadMoreListener() {

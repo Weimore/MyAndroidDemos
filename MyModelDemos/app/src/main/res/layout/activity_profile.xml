@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/toobar_layout"/>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:minHeight="100dp">
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                tools:background="@drawable/rella7"
+                android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/profile_face"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"
+                tools:background="@mipmap/rella_app"/>
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/profile_face"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="20dp"
+                tools:text="Weimore"
+                android:textColor="@color/colorWhite"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/profile_name"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="这里请填写个人签名"
+                android:textColor="@color/colorWhite"/>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+    <TableLayout
+        android:id="@+id/profile_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/profile_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</android.support.design.widget.CoordinatorLayout>

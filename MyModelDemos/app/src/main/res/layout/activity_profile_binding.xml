@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data >
+        <variable
+            name="profileActivityProfile"
+            type="com.example.mymodeldemos.viewmodel.ProfileActivityProfile" />
+        <variable
+            name="ProfileActivity"
+            type="com.example.mymodeldemos.ProfileActivity"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toobar_layout" />
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:minHeight="100dp"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    app:bg="@{profileActivityProfile.profileImage}"
+                    android:scaleType="centerCrop"
+                    tools:background="@drawable/rella7" />
+
+                <ImageView
+                    android:id="@+id/profile_face"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    app:bg="@{profileActivityProfile.profileFace}"
+                    tools:background="@mipmap/rella_app" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_face"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="@{profileActivityProfile.profileName}"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20dp"
+                    tools:text="Weimore" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="@{profileActivityProfile.profileText}"
+                    android:textColor="@color/colorWhite"
+                    tools:text="这里请填写个人签名" />
+                <Button
+                    android:onClick="@{ProfileActivity::buttonClick}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击"
+                    android:layout_alignTop="@id/profile_face"
+                    android:layout_toRightOf="@id/profile_face"/>
+            </RelativeLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <TableLayout
+            android:id="@+id/profile_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/profile_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
+

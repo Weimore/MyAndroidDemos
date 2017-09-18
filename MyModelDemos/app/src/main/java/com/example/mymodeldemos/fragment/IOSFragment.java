@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -18,11 +17,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mymodeldemos.R;
 import com.example.mymodeldemos.base.BaseListFragment;
 import com.example.mymodeldemos.model.Fuli;
+import com.example.mymodeldemos.model.IOS;
 import com.example.mymodeldemos.utils.DataUtils;
 import com.example.mymodeldemos.utils.HttpUtils;
 import com.example.mymodeldemos.utils.StringUtils;
 import com.example.mymodeldemos.utils.imageutils.ImageLoader;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +34,7 @@ import okhttp3.Response;
  * Created by 吴城林 on 2017/9/11.
  */
 
-public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements IChangeTextColor {
+public class IOSFragment extends BaseListFragment<Fuli.ResultsBean> implements IChangeTextColor {
 
     private static volatile int PAGE = 2;
     private int color;
@@ -73,7 +72,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
         BaseQuickAdapter.RequestLoadMoreListener listener = new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                HttpUtils.get(DataUtils.FULI_URL + PAGE, new Callback() {
+                HttpUtils.get(DataUtils.IOS_URL + PAGE, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
 
@@ -81,7 +80,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        final List<Fuli.ResultsBean> datas = DataUtils.getFuliResult(response.body().string());
+                        final List<IOS.ResultsBean> datas = DataUtils.getIOSResult(response.body().string());
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -105,7 +104,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
 
     @Override
     protected BaseQuickAdapter setUpAdapter() {
-        adapter = new FuliAdapter(R.layout.sample_item_four);
+        adapter = new IOSAdapter(R.layout.sample_item_four);
         return adapter;
     }
 
@@ -123,7 +122,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
             PAGE = 2;
             adapter.setNewData(dataList);
         }
-        HttpUtils.get(DataUtils.FULI_URL + 1, new Callback() {
+        HttpUtils.get(DataUtils.IOS_URL + 1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -131,7 +130,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                final List<Fuli.ResultsBean> datas = DataUtils.getFuliResult(response.body().string());
+                final List<IOS.ResultsBean> datas = DataUtils.getIOSResult(response.body().string());
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -154,13 +153,13 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
         return this;
     }
 
-    class FuliAdapter extends BaseQuickAdapter<Fuli.ResultsBean, BaseViewHolder> {
-        public FuliAdapter(@LayoutRes int layoutResId) {
+    class IOSAdapter extends BaseQuickAdapter<IOS.ResultsBean, BaseViewHolder> {
+        public IOSAdapter(@LayoutRes int layoutResId) {
             super(layoutResId);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, Fuli.ResultsBean item) {
+        protected void convert(BaseViewHolder helper, IOS.ResultsBean item) {
 //            helper.getView(R.id.item_four_image).post(new Runnable() {
 //                @Override
 //                public void run() {
@@ -169,7 +168,7 @@ public class FuliFragment extends BaseListFragment<Fuli.ResultsBean> implements 
 //            });
             ImageLoader.getInstance().showImage(helper.getView(R.id.item_four_image), item.getUrl());  //设置图片
             String data = StringUtils.getSplit(item.getCreatedAt(), "T", 1);
-            helper.setText(R.id.item_four_data, StringUtils.getData(data));
+            helper.setText(R.id.item_four_data, data);
         }
     }
 

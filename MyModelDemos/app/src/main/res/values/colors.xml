@@ -11,4 +11,5 @@
     <color name="transaprant">#00ffffff</color>
     <color name="searchBarColor">#aaffffff</color>   <!--查询图片栏的透明色-->
     <color name="rowLineColor">#e7e1e1</color>
+    <color name="recyclerBackColor">#f2f2ee</color>
 </resources>

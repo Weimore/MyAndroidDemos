@@ -107,7 +107,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 //            toolbar_menu.getMenu().clear();
 //            toolbar_menu.inflateMenu(menuResID);
             this.menuResID =menuResID;
-            LogUtils.d("getMenu........................");
         }
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

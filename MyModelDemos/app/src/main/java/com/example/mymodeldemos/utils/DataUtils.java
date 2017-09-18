@@ -1,6 +1,8 @@
 package com.example.mymodeldemos.utils;
 
+import com.example.mymodeldemos.model.Android;
 import com.example.mymodeldemos.model.Fuli;
+import com.example.mymodeldemos.model.IOS;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -24,4 +26,24 @@ public class DataUtils {
         List<Fuli.ResultsBean> resultsList = fuli.getResults();
         return resultsList;
     }
+
+    public static List<Android.ResultsBean> getAndroidResult(String url){
+        Gson gson = new Gson();
+        Android android = gson.fromJson(url,Android.class);
+        List<Android.ResultsBean> resultsList = android.getResults();
+        return resultsList;
+    }
+
+    public static List<IOS.ResultsBean> getIOSResult(String url){
+        Gson gson = new Gson();
+        IOS ios = gson.fromJson(url,IOS.class);
+        List<IOS.ResultsBean> resultsList = ios.getResults();
+        return resultsList;
+    }
+
+//    public static List<?> getResult(String url,Class tClass,Class<K> kClass){
+//        Gson gson = new Gson();
+//        gson.fromJson(url,tClass)
+//
+//    }
 }

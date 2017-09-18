@@ -30,7 +30,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     protected void initSplash(final Intent intent, int imageResId ,long delayMillis) {
-        LogUtils.d("initSplash....................");
         if (intent == null) {
             return;
         }
